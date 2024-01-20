@@ -5,15 +5,24 @@ import { type AppType } from "next/app";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
+import { Be_Vietnam_Pro } from "next/font/google";
+
+const be_Vietnam_pro = Be_Vietnam_Pro({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-primary",
+});
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <SessionProvider session={session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+    <main className={`${be_Vietnam_pro.variable} font-sans`}>
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
+    </main>
   );
 };
 
