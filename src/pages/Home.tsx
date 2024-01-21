@@ -1,7 +1,5 @@
-import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
-
 import { api } from "~/utils/api";
 
 export default function Home() {
@@ -24,7 +22,7 @@ export default function Home() {
             <div className="font-size-lg text-lg text-text_accent_400">
               Meal Inspiration
             </div>
-            <button className="btn-main btn">Login</button>
+            <button className="btn btn-main">Login</button>
           </div>
         </header>
         <div className="body">
@@ -42,7 +40,7 @@ export default function Home() {
                     repellendus molestias voluptatem, laboriosam beatae deserunt
                     officia necessitatibus accusantium.
                   </p>
-                  <button className="btn-main btn">Login</button>
+                  <button className="btn btn-main">Login</button>
                 </div>
                 <div>
                   <img src="/pasta.webp" alt="pasta" />
@@ -65,7 +63,7 @@ export default function Home() {
                 </p>
                 <ul className="numbered-items" role="list">
                   <li>
-                    <h3 className="text-base font-fw_bold">One</h3>
+                    <h3 className="font-fw_bold text-base">One</h3>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Alias error eveniet illo, voluptate architecto laborum non
@@ -74,7 +72,7 @@ export default function Home() {
                     </p>
                   </li>
                   <li>
-                    <h3 className="text-base font-fw_bold">Two</h3>
+                    <h3 className="font-fw_bold text-base">Two</h3>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Alias error eveniet illo, voluptate architecto laborum non
@@ -83,7 +81,7 @@ export default function Home() {
                     </p>
                   </li>
                   <li>
-                    <h3 className="text-base font-fw_bold">Three</h3>
+                    <h3 className="font-fw_bold text-base">Three</h3>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Alias error eveniet illo, voluptate architecto laborum non
@@ -113,7 +111,7 @@ export default function Home() {
                 </div>
                 <div>
                   <button
-                    className="btn-main btn bg-bg_accent_100 text-text_accent_400"
+                    className="btn btn-main bg-bg_accent_100 text-text_accent_400"
                     data-type="inverted"
                   >
                     Get Started
@@ -152,64 +150,34 @@ export default function Home() {
                 <nav aria-label="Footer" className="footer-nav">
                   <ul role="list">
                     <li>
-                      <a href="#">List Item</a>
+                      <a href="#"></a>
                     </li>
                     <li>
-                      <a href="#">List Item</a>
+                      <a href="#"></a>
                     </li>
                     <li>
-                      <a href="#">List Item</a>
+                      <a href="#"></a>
                     </li>
                     <li>
-                      <a href="#">List Item</a>
+                      <a href="#"></a>
                     </li>
                     <li>
-                      <a href="#">List Item</a>
+                      <a href="#"></a>
                     </li>
                     <li>
-                      <a href="#">List Item</a>
+                      <a href="#"></a>
                     </li>
                     <li>
-                      <a href="#">List Item</a>
+                      <a href="#"></a>
                     </li>
                   </ul>
                 </nav>
               </div>
-              <div>
-                <form action="">
-                  <input type="email" />
-                </form>
-                <button className="btn-main btn">Go</button>
-                <p>Copyright 2024. All Rights Reserved.</p>
-              </div>
+              <div></div>
             </div>
           </div>
         </footer>
       </main>
     </>
-  );
-}
-
-function AuthShowcase() {
-  const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = api.post.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined },
-  );
-
-  return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
-      <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
   );
 }

@@ -11,8 +11,12 @@
     --color-neutral-100: 232deg 12% 13%;
     --color-neutral-900: 0deg 0% 0%;
 
-    --fs-primary-heading: 2.5rem;
-    --fs-secondary-heading: 1.875rem;
+    /* --fs-primary-heading: 2.5rem;
+    --fs-secondary-heading: 1.875rem; */
+
+    /* --fw-bold: 700;
+    --fw-regular: 400;
+    --fw-semi-bold: 500; */
   }
 
   /* Box sizing rules */
@@ -92,5 +96,11 @@
   /* Anything that has been anchored to should have extra scroll margin */
   :target {
     scroll-margin-block: 5ex;
+  }
+}
+
+@layer components {
+  .btn-main {
+    @apply text-white hover:text-black w-32 rounded-full bg-accent_400 hover:bg-accent_100;
   }
 }
