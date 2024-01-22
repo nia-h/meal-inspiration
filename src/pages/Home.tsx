@@ -20,9 +20,9 @@ export default function Home() {
               <img src="/cooking.png" alt="MI-logo" />
             </Link>
             <div className="font-size-lg text-lg text-text_accent_400">
-              Meal Inspiration
+              Meal Inspiration?
             </div>
-            <button className="btn btn-main">Login</button>
+            <button className="">Login?</button>
           </div>
         </header>
         <div className="body">
@@ -40,7 +40,7 @@ export default function Home() {
                     repellendus molestias voluptatem, laboriosam beatae deserunt
                     officia necessitatibus accusantium.
                   </p>
-                  <button className="btn btn-main">Login</button>
+                  <button className="btn-main btn">Login</button>
                 </div>
                 <div>
                   <img src="/pasta.webp" alt="pasta" />
@@ -63,7 +63,7 @@ export default function Home() {
                 </p>
                 <ul className="numbered-items" role="list">
                   <li>
-                    <h3 className="font-fw_bold text-base">One</h3>
+                    <h3 className="text-base font-fw_bold">One</h3>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Alias error eveniet illo, voluptate architecto laborum non
@@ -72,7 +72,7 @@ export default function Home() {
                     </p>
                   </li>
                   <li>
-                    <h3 className="font-fw_bold text-base">Two</h3>
+                    <h3 className="text-base font-fw_bold">Two</h3>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Alias error eveniet illo, voluptate architecto laborum non
@@ -81,7 +81,7 @@ export default function Home() {
                     </p>
                   </li>
                   <li>
-                    <h3 className="font-fw_bold text-base">Three</h3>
+                    <h3 className="text-base font-fw_bold">Three</h3>
                     <p>
                       Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                       Alias error eveniet illo, voluptate architecto laborum non
@@ -111,7 +111,7 @@ export default function Home() {
                 </div>
                 <div>
                   <button
-                    className="btn btn-main bg-bg_accent_100 text-text_accent_400"
+                    className="btn-main btn bg-bg_accent_100 text-text_accent_400"
                     data-type="inverted"
                   >
                     Get Started
@@ -130,19 +130,19 @@ export default function Home() {
                 </Link>
                 <ul role="list" aria-label="social links">
                   <li>
-                    <Link href="#" aria-aria-label="facebook"></Link>
+                    <Link href="#" aria-label="facebook"></Link>
                   </li>
                   <li>
-                    <Link href="#" aria-aria-label="youtube"></Link>
+                    <Link href="#" aria-label="youtube"></Link>
                   </li>
                   <li>
-                    <Link href="#" aria-aria-label="twitter"></Link>
+                    <Link href="#" aria-label="twitter"></Link>
                   </li>
                   <li>
-                    <Link href="#" aria-aria-label="pinterest"></Link>
+                    <Link href="#" aria-label="pinterest"></Link>
                   </li>
                   <li>
-                    <Link href="#" aria-aria-label="instagram"></Link>
+                    <Link href="#" aria-label="instagram"></Link>
                   </li>
                 </ul>
               </div>

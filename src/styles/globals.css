@@ -1,15 +1,17 @@
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
 
 @layer base {
+  /* If you want to add some custom CSS that should always be included, add it to your stylesheet without using the @layer directive */
   :root {
     /* For hsl(198deg 93% 60% / <alpha-value>) */
     --color-primary-400: 228deg 39% 23%;
     --color-accent-400: 12deg 99% 59%;
     --color-accent-100: 13deg 100% 96%;
-    --color-neutral-100: 232deg 12% 13%;
-    --color-neutral-900: 0deg 0% 0%;
+    --color-neutral-900: 232deg 12% 13%;
+    --color-neutral-100: 0deg 0% 100%;
+
+    --max-width: 1110px;
+    --padding: 1rem;
 
     /* --fs-primary-heading: 2.5rem;
     --fs-secondary-heading: 1.875rem; */
@@ -97,10 +99,29 @@
   :target {
     scroll-margin-block: 5ex;
   }
+
+  /* general styling */
+  .general-container {
+    --max-width: 1110px;
+    /* not padding in techical sense */
+    --padding: 1rem;
+
+    width: min(var(--max-width), (100% - var(--padding) * 2));
+    /* for centering the element */
+    margin-inline: auto;
+  }
 }
+
+@tailwind components;
 
 @layer components {
   .btn-main {
-    @apply text-white hover:text-black w-32 rounded-full bg-accent_400 hover:bg-accent_100;
+    @apply w-32 rounded-full bg-accent_400 text-white hover:bg-accent_100 hover:text-black;
+  }
+
+  /* em is the only unit that is consistent across all the browsers*/
+  .even-columes {
+    @apply standard-sm:grid-flow-col standard-sm:auto-cols-1fr grid gap-4;
   }
 }
+@tailwind utilities;

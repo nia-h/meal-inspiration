@@ -7,7 +7,7 @@ import { api } from "~/utils/api";
 import "~/styles/globals.css";
 import { Be_Vietnam_Pro } from "next/font/google";
 
-const be_Vietnam_pro = Be_Vietnam_Pro({
+const be_Vietnam_Pro = Be_Vietnam_Pro({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-primary",
@@ -18,7 +18,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   pageProps: { session, ...pageProps },
 }) => {
   return (
-    <main className={`${be_Vietnam_pro.variable} font-sans`}>
+    <main className={`${be_Vietnam_Pro.variable} font-sans`}>
       <SessionProvider session={session}>
         <Component {...pageProps} />
       </SessionProvider>

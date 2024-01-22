@@ -15,9 +15,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
+      <main className="text-sm text-text_primary_400">
         <header className="primary-header">
-          <div className="container">
+          <div className="general-container">
             <Link href="/">
               <img src="/cooking.png" alt="MI-logo" />
             </Link>
@@ -29,7 +29,7 @@ export default function Home() {
         </header>
         <div className="body">
           <section>
-            <div className="container">
+            <div className="general-container">
               <div className="even-columns">
                 <div>
                   <h1 className="text-fs_primary_heading font-fw_bold">
@@ -51,7 +51,7 @@ export default function Home() {
             </div>
           </section>
           <section>
-            <div className="container">
+            <div className="general-container">
               <div className="even-columns"></div>
               <div>
                 <h2 className="text-fs_secondary_heading font-fw_bold">
@@ -103,8 +103,8 @@ export default function Home() {
             <button></button>
             {/* button needs to be extract using @apply */}
           </section>
-          <section className="bg-bg_accent_400 text-text_neutral_100">
-            <div className="container">
+          <section className="cta | bg-bg_accent_400 text-text_neutral_100">
+            <div className="general-container">
               <div className="even-columns">
                 <div>
                   <p className="text-fs_secondary_heading font-fw_bold">
@@ -124,7 +124,7 @@ export default function Home() {
           </section>
         </div>
         <footer className="text-text bg-bg_neutral_900 text-text_accent_100">
-          <div className="container">
+          <div className="general-container">
             <div className="even-columns">
               <div>
                 <Link href="/">
@@ -132,19 +132,19 @@ export default function Home() {
                 </Link>
                 <ul role="list" aria-label="social links">
                   <li>
-                    <Link href="#" aria-aria-label="facebook"></Link>
+                    <Link href="#" aria-label="facebook"></Link>
                   </li>
                   <li>
-                    <Link href="#" aria-aria-label="youtube"></Link>
+                    <Link href="#" aria-label="youtube"></Link>
                   </li>
                   <li>
-                    <Link href="#" aria-aria-label="twitter"></Link>
+                    <Link href="#" aria-label="twitter"></Link>
                   </li>
                   <li>
-                    <Link href="#" aria-aria-label="pinterest"></Link>
+                    <Link href="#" aria-label="pinterest"></Link>
                   </li>
                   <li>
-                    <Link href="#" aria-aria-label="instagram"></Link>
+                    <Link href="#" aria-label="instagram"></Link>
                   </li>
                 </ul>
               </div>

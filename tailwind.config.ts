@@ -1,10 +1,19 @@
 import { type Config } from "tailwindcss";
-import { fontFamily } from "tailwindcss/defaultTheme";
+import defaultTheme, { fontFamily } from "tailwindcss/defaultTheme";
 
 export default {
   content: ["./src/**/*.tsx"],
+
   theme: {
+    screens: {
+      "standard-sm": "50em",
+      ...defaultTheme.screens,
+    },
     extend: {
+      gridAutoColumns: {
+        "1fr": "minmax(auto, 1fr)",
+      },
+
       colors: {
         primary_400: "hsl(var(--color-primary-400))",
         accent_400: "hsl(var(--color-accent-400))",
