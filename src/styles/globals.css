@@ -1,127 +1,158 @@
 @tailwind base;
 
-@layer base {
-  /* If you want to add some custom CSS that should always be included, add it to your stylesheet without using the @layer directive */
-  :root {
-    /* For hsl(198deg 93% 60% / <alpha-value>) */
-    --color-primary-400: 228deg 39% 23%;
-    --color-accent-400: 12deg 99% 59%;
-    --color-accent-100: 13deg 100% 96%;
-    --color-neutral-900: 232deg 12% 13%;
-    --color-neutral-100: 0deg 0% 100%;
+/* @layer base { */
+/* If you want to add some custom CSS that should always be included, add it to your stylesheet without using the @layer directive */
+:root {
+  /* For hsl(198deg 93% 60% / <alpha-value>) */
+  --color-primary-400: 228deg 39% 23%;
+  --css-color-accent-500: hsl(12, 60%, 45%);
+  --color-accent-400: 12deg 99% 59%;
+  --css-color-accent-400: hsl(12, 99%, 59%);
+  --css-color-accent-300: hsl(12, 88%, 75%);
+  --color-accent-300: 12deg 88% 75%;
+  --color-accent-100: 13deg 100% 96%;
 
-    --max-width: 1110px;
-    --padding: 1rem;
+  --color-neutral-900: 232deg 12% 13%;
+  --color-neutral-100: 0deg 0% 100%;
+  --css-color-neutral-100: hsl(0, 0%, 100%);
+  /* below can affect daisyUI btn ?? */
+  /* --btn-color: #111; */
+  --max-width: 1110px;
+  --padding: 1rem;
 
-    /* --fs-primary-heading: 2.5rem;
+  /* --fs-primary-heading: 2.5rem;
     --fs-secondary-heading: 1.875rem; */
 
-    /* --fw-bold: 700;
-    --fw-regular: 400;
-    --fw-semi-bold: 500; */
-  }
+  --fs-300: 0.8125rem;
 
-  /* Box sizing rules */
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
+  --fw-bold: 700;
+  --fw-regular: 400;
+  --fw-semi-bold: 500;
 
-  /* Prevent font size inflation */
-  html {
-    -moz-text-size-adjust: none;
-    -webkit-text-size-adjust: none;
-    text-size-adjust: none;
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
-    font: inherit;
-  }
-
-  /* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
-  ul[role="list"],
-  ol[role="list"] {
-    list-style: none;
-  }
-
-  html,
-  main {
-    height: 100%;
-  }
-  /* Set core body defaults */
-  main {
-    min-height: 100vh;
-    line-height: 1.5;
-  }
-
-  /* Set shorter line heights on headings and interactive elements */
-  h1,
-  h2,
-  h3,
-  h4,
-  button,
-  input,
-  label {
-    line-height: 1.1;
-  }
-
-  /* Balance text wrapping on headings */
-  h1,
-  h2,
-  h3,
-  h4 {
-    text-wrap: balance;
-  }
-
-  /* A elements that don't have a class get default styles */
-  a:not([class]) {
-    text-decoration-skip-ink: auto;
-    color: currentColor;
-  }
-
-  /* Make images easier to work with */
-  img,
-  picture,
-  svg {
-    max-width: 100%;
-    display: block;
-  }
-
-  /* Make sure textareas without a rows attribute are not tiny */
-  textarea:not([rows]) {
-    min-height: 10em;
-  }
-
-  /* Anything that has been anchored to should have extra scroll margin */
-  :target {
-    scroll-margin-block: 5ex;
-  }
-
-  /* general styling */
-  .general-container {
-    --max-width: 1110px;
-    /* not padding in techical sense */
-    --padding: 1rem;
-
-    width: min(var(--max-width), (100% - var(--padding) * 2));
-    /* for centering the element */
-    margin-inline: auto;
-  }
+  --fs-button: var(--fs-300);
 }
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font: inherit;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role="list"],
+ol[role="list"] {
+  list-style: none;
+}
+
+html,
+main {
+  height: 100%;
+}
+/* Set core body defaults */
+main {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1,
+h2,
+h3,
+h4,
+button,
+input,
+label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/* general styling */
+.kevin-button {
+  cursor: pointer;
+  text-decoration: none;
+  border: 0;
+  border-radius: 100vmax;
+  padding: 1.25em 2.5em;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-button);
+  line-height: 1;
+  color: var(--css-color-neutral-100);
+  background-color: var(--css-color-accent-400);
+
+  box-shadow: 0 1.125em 1em -1em var(--css-color-accent-500);
+}
+
+.kevin-button:hover,
+.kevin-button:focus-visible {
+  background-color: var(--css-color-accent-300);
+}
+
+.general-container {
+  --max-width: 1110px;
+  /* not padding in techical sense */
+  --padding: 1rem;
+
+  width: min(var(--max-width), (100% - var(--padding) * 2));
+  /* for centering the element */
+  margin-inline: auto;
+}
+/* } */
 
 @tailwind components;
 
 @layer components {
   .btn-main {
-    @apply w-32 rounded-full bg-accent_400 text-white hover:bg-accent_100 hover:text-black;
+    @apply inline-flex h-auto min-h-fit rounded-[50vmax] border-0 bg-accent_400 px-[2.5em] py-[1.25em] text-[0.8125rem] font-bold leading-[1] text-neutral_100 shadow-button hover:bg-accent_300 focus-visible:bg-accent_300;
   }
 
   /* em is the only unit that is consistent across all the browsers*/
-  .even-columes {
-    @apply standard-sm:grid-flow-col standard-sm:auto-cols-1fr grid gap-4;
+  .even-columns {
+    @apply grid gap-4 standard-sm:auto-cols-1fr standard-sm:grid-flow-col;
   }
 }
 @tailwind utilities;

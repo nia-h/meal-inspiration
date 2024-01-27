@@ -1,11 +1,52 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
+
 import Link from "next/link";
+
+import Image from "next/image";
+import logo from "public/cooking.png";
+import { useRef } from "react";
+// import type { MouseEvent } from "react";
 
 import { api } from "~/utils/api";
 
 export default function Home() {
   const hello = api.post.hello.useQuery({ text: "from tRPC" });
+
+  const primaryNavItems: [string, string][] = [];
+  primaryNavItems.push(["Pricing", "#"]);
+  primaryNavItems.push(["Product", "#"]);
+  primaryNavItems.push(["About us", "#"]);
+  primaryNavItems.push(["Career", "#"]);
+  primaryNavItems.push(["Community", ""]);
+
+  const primaryNavRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLElement>(null);
+
+  const handleMobileNavToggle = (
+    e: React.MouseEvent<Element, MouseEvent>,
+  ): void => {
+    const primaryNav = primaryNavRef.current;
+    const header = headerRef.current as HTMLHeadingElement;
+
+    if (!primaryNav || !header) return;
+    if (!e.target) return;
+    const primaryNavButton = (e.target as HTMLImageElement)
+      .parentElement as HTMLButtonElement;
+
+    primaryNavButton.hasAttribute("data-visible")
+      ? primaryNavButton.setAttribute("aria-expanded", "false")
+      : primaryNavButton.setAttribute("aria-expanded", "true");
+    primaryNav.classList.toggle("hidden");
+    // primaryNav.classList.toggle("fixed");
+    primaryNavButton.toggleAttribute("data-visible");
+    header.classList.toggle("before:content-['']");
+    header.classList.toggle("before:fixed");
+    header.classList.toggle("before:inset-0");
+    header.classList.toggle("before:bg-gradient-to-b");
+    header.classList.toggle("before:from-drop_shadow_start");
+    header.classList.toggle("before:to-drop_shadow_end");
+  };
 
   return (
     <>
@@ -16,24 +57,89 @@ export default function Home() {
       </Head>
 
       <main className="text-sm text-text_primary_400">
-        <header className="primary-header">
+        {/* <header className="primary-header mt-12" ref={headerRef}> */}
+        <header
+          className="primary-header mt-6"
+          ref={headerRef}
+          // before:fixed before:inset-0 before:bg-pink-300 before:content-['']
+        >
           <div className="general-container">
-            <Link href="/">
-              <img src="/cooking.png" alt="MI-logo" />
-            </Link>
-            <div className="font-size-lg text-lg text-text_accent_400">
-              Meal Inspiration
+            <div className="nav-wrapper flex items-center justify-between">
+              <Link href="/" className="">
+                <Image
+                  className="h-auto max-w-16"
+                  src={logo}
+                  alt="MI-logo"
+                  // sizes="100vw"
+
+                  // sizes="(max-width: 768px) 10vw, (max-width: 1200px) 8vw, 5vw"
+                />
+              </Link>
+              <button
+                onClick={(e) => {
+                  handleMobileNavToggle(e);
+                }}
+                className="mobile-nav-toggle fixed right-4 top-8 cursor-pointer border-0 bg-transparent p-[0.5em] standard-sm:hidden"
+                aria-controls="primary-navigation"
+                aria-expanded="false"
+              >
+                <img
+                  className="icon-hamburger"
+                  src="/icon-hamburger.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
+                <img
+                  className="icon-close"
+                  src="/icon-close.svg"
+                  alt=""
+                  hidden
+                  aria-hidden="true"
+                />
+                <span className="sr-only">Menu</span>
+              </button>
+
+              <nav
+                // className="primary-navigation fixed inset-x-4 top-28 ml-auto hidden max-w-[25rem] rounded bg-bg_neutral_100 p-12 shadow-nav standard-sm:relative standard-sm:inline-flex"
+                className="sm:max-md: bg-pink-300"
+                id="primary-navigation"
+                // ref={primaryNavRef}
+              >
+                <ul
+                  aria-label="Primary"
+                  role="list"
+                  className="nav-ul standard-sm:gap-non_mobile_nav_gap grid gap-8 text-center text-fs_nav font-bold text-white standard-sm:flex standard-sm:font-medium"
+                >
+                  {/* clamp(): not good for width (due to min value in mobile), good for font sizes */}
+                  {primaryNavItems.map((item) => (
+                    <li key={item[0]}>
+                      <a
+                        href={item[1]}
+                        className="text-text_primary_400 hover:text-text_accent_400 focus:text-text_accent_400"
+                      >
+                        {item[0]}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+              <button className="btn-main btn hidden standard-sm:inline-flex">
+                Daisy Button
+              </button>
+              {/* <span className="px-4"></span>
+              <button className="kevin-button">Kevin Button</button> */}
             </div>
-            <button className="btn-main btn">Login</button>
           </div>
         </header>
+
         <div className="body">
-          <section>
+          <section className="py-20">
             <div className="general-container">
               <div className="even-columns">
                 <div>
-                  <h1 className="text-fs_primary_heading font-fw_bold">
-                    Slogan goes here
+                  <h1 className="text-fs_primary_heading font-bold leading-[1.1]">
+                    Slogan goes here - Bring every one here to build better
+                    products
                   </h1>
                   <p>
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
@@ -42,7 +148,7 @@ export default function Home() {
                     repellendus molestias voluptatem, laboriosam beatae deserunt
                     officia necessitatibus accusantium.
                   </p>
-                  <button className="btn-main btn">Login</button>
+                  <button className="btn">Login</button>
                 </div>
                 <div>
                   <img src="/pasta.webp" alt="pasta" />
@@ -50,64 +156,67 @@ export default function Home() {
               </div>
             </div>
           </section>
-          <section>
+
+          <section className="py-20">
             <div className="general-container">
-              <div className="even-columns"></div>
-              <div>
-                <h2 className="text-fs_secondary_heading font-fw_bold">
-                  smaller title goes here
-                </h2>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Error
-                  impedit maxime nisi consequuntur totam porro nihil, rerum fuga
-                  odit culpa amet illo eaque laudantium tenetur repellat ratione
-                  voluptate voluptas temporibus!
-                </p>
-                <ul className="numbered-items" role="list">
-                  <li>
-                    <h3 className="text-base font-fw_bold">One</h3>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Alias error eveniet illo, voluptate architecto laborum non
-                      deleniti eos commodi numquam odit. Culpa ipsa soluta
-                      assumenda?
-                    </p>
-                  </li>
-                  <li>
-                    <h3 className="text-base font-fw_bold">Two</h3>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Alias error eveniet illo, voluptate architecto laborum non
-                      deleniti eos commodi numquam odit. Culpa ipsa soluta
-                      assumenda?
-                    </p>
-                  </li>
-                  <li>
-                    <h3 className="text-base font-fw_bold">Three</h3>
-                    <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Alias error eveniet illo, voluptate architecto laborum non
-                      deleniti eos commodi numquam odit. Culpa ipsa soluta
-                      assumenda?
-                    </p>
-                  </li>
-                </ul>
+              <div className="even-columns">
+                <div>
+                  <h2 className="text-fs_secondary_heading font-bold leading-[1.1]">
+                    smaller title goes here
+                  </h2>
+                  <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Error impedit maxime nisi consequuntur totam porro nihil,
+                    rerum fuga odit culpa amet illo eaque laudantium tenetur
+                    repellat ratione voluptate voluptas temporibus!
+                  </p>
+                  <ul className="numbered-items" role="list">
+                    <li>
+                      <h3 className="text-base font-bold">One</h3>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Alias error eveniet illo, voluptate architecto
+                        laborum non deleniti eos commodi numquam odit. Culpa
+                        ipsa soluta assumenda?
+                      </p>
+                    </li>
+                    <li>
+                      <h3 className="text-base font-bold">Two</h3>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Alias error eveniet illo, voluptate architecto
+                        laborum non deleniti eos commodi numquam odit. Culpa
+                        ipsa soluta assumenda?
+                      </p>
+                    </li>
+                    <li>
+                      <h3 className="text-base font-bold">Three</h3>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Alias error eveniet illo, voluptate architecto
+                        laborum non deleniti eos commodi numquam odit. Culpa
+                        ipsa soluta assumenda?
+                      </p>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <div></div>
             </div>
           </section>
-          <section className="carousel">
-            <h2 className="text-fs_secondary_heading">
-              Catch phrases goes here
+
+          <section className="carousel py-12">
+            <h2 className="text-fs_secondary_heading font-bold">
+              carousel Catch phrases goes here
             </h2>
             <button></button>
             {/* button needs to be extract using @apply */}
           </section>
-          <section className="cta | bg-bg_accent_400 text-text_neutral_100">
+
+          <section className="cta bg-bg_accent_400 py-12 text-text_neutral_100">
             <div className="general-container">
               <div className="even-columns">
                 <div>
-                  <p className="text-fs_secondary_heading font-fw_bold">
+                  <p className="text-fs_secondary font-bold leading-[1.1]">
                     Call to Action slogan goes here
                   </p>
                 </div>
@@ -190,26 +299,26 @@ export default function Home() {
   );
 }
 
-function AuthShowcase() {
-  const { data: sessionData } = useSession();
+// function AuthShowcase() {
+//   const { data: sessionData } = useSession();
 
-  const { data: secretMessage } = api.post.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined },
-  );
+//   const { data: secretMessage } = api.post.getSecretMessage.useQuery(
+//     undefined, // no input
+//     { enabled: sessionData?.user !== undefined },
+//   );
 
-  return (
-    <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl text-white">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
-      <button
-        className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-        onClick={sessionData ? () => void signOut() : () => void signIn()}
-      >
-        {sessionData ? "Sign out" : "Sign in"}
-      </button>
-    </div>
-  );
-}
+//   return (
+//     <div className="flex flex-col items-center justify-center gap-4">
+//       <p className="text-center text-2xl text-white">
+//         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
+//         {secretMessage && <span> - {secretMessage}</span>}
+//       </p>
+//       <button
+//         className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
+//         onClick={sessionData ? () => void signOut() : () => void signIn()}
+//       >
+//         {sessionData ? "Sign out" : "Sign in"}
+//       </button>
+//     </div>
+//   );
+// }
