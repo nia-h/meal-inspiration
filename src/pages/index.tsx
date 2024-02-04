@@ -16,9 +16,7 @@ export default function Home() {
   useEffect(() => {
     const existingContainer = document.querySelector(".a11y-slider-container");
     if (existingContainer) return;
-    const container = document.querySelector(
-      ".slider",
-    ) as unknown as HTMLElement;
+    const container = document.querySelector(".slider") as unknown as HTMLElement;
 
     const slider = new A11YSlider(container, {
       adaptiveHeight: false,
@@ -69,31 +67,44 @@ export default function Home() {
 
   // const sliderHostRef = useRef<HTMLUListElement>(null);
 
-  const handleMobileNavToggle = (
-    e: React.MouseEvent<Element, MouseEvent>,
-  ): void => {
-    console.log("e.target==>", e.target);
-
+  const handleMobileNavToggle = (e: React.MouseEvent<Element, MouseEvent>): void => {
     const primaryNav = primaryNavRef.current;
     const header = headerRef.current as HTMLHeadingElement;
-    const hamburger = hamburgerRef.current!;
-    const iconClose = iconCloseRef.current!;
+    // const hamburger = hamburgerRef.current!;
+    // const iconClose = iconCloseRef.current!;
 
     if (!primaryNav || !header) return;
     if (!e.target) return;
-    const primaryNavButton = (e.target as HTMLImageElement)
-      .parentElement as HTMLButtonElement;
+    const primaryNavButton = (e.target as HTMLImageElement).parentElement as HTMLButtonElement;
+
+    const children = primaryNavButton.childNodes;
 
     if (primaryNavButton.hasAttribute("data-visible")) {
+      //hamburger currently hidden
       primaryNavButton.setAttribute("aria-expanded", "false");
-      hamburger.setAttribute("aria-hidden", "true");
-      iconClose.setAttribute("aria-hidden", "false");
+      for (const node of children) {
+        if ((node as HTMLElement).classList.contains("icon-hamburger")) {
+          (node as HTMLElement).setAttribute("aria-hidden", "false");
+          (node as HTMLElement).classList.toggle("hidden");
+        } else if ((node as HTMLElement).classList.contains("icon-close")) {
+          (node as HTMLElement).setAttribute("aria-hidden", "true");
+          (node as HTMLElement).classList.toggle("hidden");
+        }
+      }
+      // hamburger.setAttribute("aria-hidden", "true");
+      // iconClose.setAttribute("aria-hidden", "false");
     } else {
       primaryNavButton.setAttribute("aria-expanded", "true");
-      hamburger.setAttribute("aria-hidden", "false");
-      iconClose.setAttribute("aria-hidden", "true");
+      for (const node of children) {
+        if ((node as HTMLElement).classList.contains("icon-hamburger")) {
+          (node as HTMLElement).setAttribute("aria-hidden", "true");
+          (node as HTMLElement).classList.toggle("hidden");
+        } else if ((node as HTMLElement).classList.contains("icon-close")) {
+          (node as HTMLElement).setAttribute("aria-hidden", "false");
+          (node as HTMLElement).classList.toggle("hidden");
+        }
+      }
     }
-
     primaryNav.classList.toggle("start:hidden");
     // primaryNav.classList.toggle("fixed");
     primaryNavButton.toggleAttribute("data-visible"); // for aria only?
@@ -106,8 +117,8 @@ export default function Home() {
     header.classList.toggle("before:to-drop_shadow_end");
     header.classList.toggle("z-50");
     header.classList.toggle("relative");
-    iconClose.classList.toggle("hidden");
-    hamburger.classList.toggle("hidden");
+    // iconClose.classList.toggle("hidden");
+    // hamburger.classList.toggle("hidden");
   };
 
   // const sliderHost = sliderHostRef.current;
@@ -155,15 +166,15 @@ export default function Home() {
                   className="icon-hamburger"
                   src="/icon-hamburger.svg"
                   alt=""
-                  aria-hidden="true"
-                  ref={hamburgerRef}
+                  aria-hidden="false"
+                  // ref={hamburgerRef}
                 />
                 <img
                   className="icon-close hidden"
                   src="/icon-close.svg"
                   alt=""
                   aria-hidden="true"
-                  ref={iconCloseRef}
+                  // ref={iconCloseRef}
                 />
                 <span className="sr-only">Menu</span>
               </button>
@@ -192,9 +203,7 @@ export default function Home() {
                   ))}
                 </ul>
               </nav>
-              <button className="btn-main btn hidden sm:inline-flex">
-                Daisy Button
-              </button>
+              <button className="btn-main btn hidden sm:inline-flex">Daisy Button</button>
               {/* <span className="px-4"></span>
               <button className="kevin-button">Kevin Button</button> */}
             </div>
@@ -207,23 +216,16 @@ export default function Home() {
               <div className="even-columns">
                 <div className="hero-image  before:absolute before:right-0 before:top-0 before:-z-10 before:aspect-[1/1.2] before:max-h-[70vh] before:w-[87%] before:bg-hero_image before:bg-hero_image_position before:bg-no-repeat before:content-[''] sm:before:w-[45%]">
                   {/* <img src="/pasta.webp" alt="pasta" /> */}
-                  <img
-                    src="/illustration-intro.svg"
-                    className="mx-auto"
-                    alt=""
-                  />
+                  <img src="/illustration-intro.svg" className="mx-auto" alt="" />
                 </div>
                 <div className="sm:-order-1">
                   <h1 className="text-fs_primary_heading font-bold leading-[1.1]">
-                    Slogan goes here - Bring every one here to build better
-                    products
+                    Slogan goes here - Bring every one here to build better products
                   </h1>
                   <p>
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Ducimus sapiente praesentium, earum, adipisci nesciunt
-                    aspernatur eos et at vero exercitationem asperiores
-                    repellendus molestias voluptatem, laboriosam beatae deserunt
-                    officia necessitatibus accusantium.
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ducimus sapiente praesentium, earum,
+                    adipisci nesciunt aspernatur eos et at vero exercitationem asperiores repellendus molestias
+                    voluptatem, laboriosam beatae deserunt officia necessitatibus accusantium.
                   </p>
                   <button className="btn">Login</button>
                 </div>
@@ -235,30 +237,22 @@ export default function Home() {
             <div className="general-container">
               <div className="even-columns">
                 <div>
-                  <h2 className="text-fs_secondary_heading font-bold leading-[1.1]">
-                    smaller title goes here
-                  </h2>
+                  <h2 className="text-fs_secondary_heading font-bold leading-[1.1]">smaller title goes here</h2>
                   <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Error impedit maxime nisi consequuntur totam porro nihil,
-                    rerum fuga odit culpa amet illo eaque laudantium tenetur
-                    repellat ratione voluptate voluptas temporibus!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Error impedit maxime nisi consequuntur
+                    totam porro nihil, rerum fuga odit culpa amet illo eaque laudantium tenetur repellat ratione
+                    voluptate voluptas temporibus!
                   </p>
                 </div>
-                <ul
-                  className="numbered-items me-auto ms-auto w-fit [counter-reset:marker]"
-                  role="list"
-                >
+                <ul className="numbered-items me-auto ms-auto w-fit [counter-reset:marker]" role="list">
                   <li className="[counter-increment:marker]">
                     <div className="list-title">
                       <h3 className="col-start-2 col-end-3 row-start-1 row-end-2 font-bold leading-4">
                         One - First Item
                       </h3>
                       <p className="col-start-2 col-end-[-1] mt-[1em] max-w-[42ch] opacity-70 xs:col-start-1">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Alias error eveniet illo, voluptate architecto
-                        laborum non deleniti eos commodi numquam odit. Culpa
-                        ipsa soluta assumenda?
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias error eveniet illo, voluptate
+                        architecto laborum non deleniti eos commodi numquam odit. Culpa ipsa soluta assumenda?
                       </p>
                     </div>
                   </li>
@@ -268,10 +262,8 @@ export default function Home() {
                         Two - Second Item - This sub-title is a very long one
                       </h3>
                       <p className="col-start-2 col-end-[-1] mt-[1em] max-w-[42ch] opacity-70 xs:col-start-1">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Alias error eveniet illo, voluptate architecto
-                        laborum non deleniti eos commodi numquam odit. Culpa
-                        ipsa soluta assumenda?
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias error eveniet illo, voluptate
+                        architecto laborum non deleniti eos commodi numquam odit. Culpa ipsa soluta assumenda?
                       </p>
                     </div>
                   </li>
@@ -281,10 +273,8 @@ export default function Home() {
                         Three - Third Item
                       </h3>
                       <p className="col-start-2 col-end-[-1] mt-[1em] max-w-[42ch] opacity-70 xs:col-start-1">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Alias error eveniet illo, voluptate architecto
-                        laborum non deleniti eos commodi numquam odit. Culpa
-                        ipsa soluta assumenda?
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias error eveniet illo, voluptate
+                        architecto laborum non deleniti eos commodi numquam odit. Culpa ipsa soluta assumenda?
                       </p>
                     </div>
                   </li>
@@ -294,9 +284,7 @@ export default function Home() {
           </section>
 
           <section className="py-12 text-center">
-            <h2 className=" text-fs_secondary_heading font-bold">
-              carousel Catch phrases goes here
-            </h2>
+            <h2 className=" text-fs_secondary_heading font-bold">carousel Catch phrases goes here</h2>
             <ul
               // ref={(node) => {
               //   if (!node) {
@@ -308,69 +296,49 @@ export default function Home() {
               className="slider flex gap-8 between:scroll-pe-[25px] between:scroll-ps-[25px] sm:scroll-pe-[25px] sm:scroll-ps-[25px]"
             >
               <li className="relative mt-12 w-full flex-[0_0_auto] rounded bg-neutral_200 between:w-[50%] sm:w-[33%]">
-                <img
-                  src="/avatar-anisha.png"
-                  className="relative mx-auto w-16 translate-y-[-50%]"
-                  alt=""
-                />
+                <img src="/avatar-anisha.png" className="relative mx-auto w-16 translate-y-[-50%]" alt="" />
                 {/* -mt-2 &  -translate-y-2 can achieve the same thing */}
                 <div className="slider-content mx-auto -mt-8 px-8 py-6 ">
                   <h3 className="font-bold">Anisha Li</h3>
                   {/* <p className=""> */}
                   <p className="mt-4 max-w-[42ch]">
-                    “Manage has supercharged our team’s workflow. The ability to
-                    maintain visibility on larger milestones at all times keeps
-                    everyone motivated.”
+                    “Manage has supercharged our team’s workflow. The ability to maintain visibility on larger
+                    milestones at all times keeps everyone motivated.”
                   </p>
                 </div>
               </li>
               <li className="relative mt-12 w-full flex-[0_0_auto] rounded bg-neutral_200 between:w-[50%] sm:w-[33%]">
-                <img
-                  src="/avatar-ali.png"
-                  className="relative inset-0 mx-auto w-16 translate-y-[-50%]"
-                  alt=""
-                />
+                <img src="/avatar-ali.png" className="relative inset-0 mx-auto w-16 translate-y-[-50%]" alt="" />
                 <div className="slider-content mx-auto -mt-8 px-8 py-6 ">
                   <h3 className="font-bold">Ali Bravo</h3>
                   <p className="mt-4 max-w-[42ch]">
                     {" "}
-                    “We have been able to cancel so many other subscriptions
-                    since using Manage. There is no more cross-channel confusion
-                    and everyone is much more focused.”
+                    “We have been able to cancel so many other subscriptions since using Manage. There is no more
+                    cross-channel confusion and everyone is much more focused.”
                   </p>
                 </div>
               </li>
               <li className="relative mt-12 w-full flex-[0_0_auto] rounded bg-neutral_200 between:w-[50%] sm:w-[33%]">
-                <img
-                  src="/avatar-richard.png"
-                  className="relative inset-0 mx-auto w-16 translate-y-[-50%]"
-                  alt=""
-                />
+                <img src="/avatar-richard.png" className="relative inset-0 mx-auto w-16 translate-y-[-50%]" alt="" />
 
                 <div className="slider-content mx-auto -mt-8 px-8 py-6 ">
                   <h3 className="font-bold">Richard Watts</h3>
                   <p className="mt-4 max-w-[42ch]">
                     {" "}
-                    “Manage allows us to provide structure and process. It keeps
-                    us organized and focused. I can’t stop recommending them to
-                    everyone I talk to!”
+                    “Manage allows us to provide structure and process. It keeps us organized and focused. I can’t stop
+                    recommending them to everyone I talk to!”
                   </p>
                 </div>
               </li>
               <li className="relative mt-12 w-full flex-[0_0_auto] rounded bg-neutral_200 between:w-[50%] sm:w-[33%]">
-                <img
-                  src="/avatar-shanai.png"
-                  className="relative inset-0 mx-auto w-16 translate-y-[-50%]"
-                  alt=""
-                />
+                <img src="/avatar-shanai.png" className="relative inset-0 mx-auto w-16 translate-y-[-50%]" alt="" />
 
                 <div className="slider-content mx-auto -mt-8 px-8 py-6 ">
                   <h3 className="font-bold">Shanai Gough</h3>
                   <p className="mt-4 max-w-[42ch]">
                     {" "}
-                    “Their software allows us to track, manage and collaborate
-                    on our projects from anywhere. It keeps the whole team
-                    in-sync without being intrusive.”
+                    “Their software allows us to track, manage and collaborate on our projects from anywhere. It keeps
+                    the whole team in-sync without being intrusive.”
                   </p>
                 </div>
               </li>
@@ -388,10 +356,7 @@ export default function Home() {
                 </p>
               </div>
               <div className="sm:justify-self-end">
-                <button
-                  className="btn-main btn bg-bg_accent_100 text-text_accent_400"
-                  data-type="inverted"
-                >
+                <button className="btn-main btn bg-bg_accent_100 text-text_accent_400" data-type="inverted">
                   Get Started
                 </button>
               </div>
@@ -414,11 +379,7 @@ export default function Home() {
                   />
                 </Link>
                 <nav className="flex items-center">
-                  <ul
-                    role="list"
-                    aria-label="social-links"
-                    className="flex gap-8 sm:gap-3"
-                  >
+                  <ul role="list" aria-label="social-links" className="flex gap-8 sm:gap-3">
                     <li>
                       <Link href="#" aria-label="facebook" className="group">
                         <svg className="icon aspect-square w-8 fill-neutral_100 group-hover:fill-accent_400 group-focus:fill-accent_400 sm:w-6">
@@ -458,10 +419,7 @@ export default function Home() {
                 </nav>
               </div>
               <div className="start:me-auto start:ms-auto">
-                <nav
-                  aria-label="Footer-nav"
-                  className="footer-nav columns-2 gap-footer_nav_gap"
-                >
+                <nav aria-label="Footer-nav" className="footer-nav columns-2 gap-footer_nav_gap">
                   <ul role="list">
                     <li>
                       <a
