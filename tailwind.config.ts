@@ -7,18 +7,20 @@ export default {
   theme: {
     screens: {
       //overlapping is necessary
-      start: { min: "0px", max: "46em" },
+      start: { min: "0px", max: "47em" },
       xs: { min: "0px", max: "30em" },
-      between: { min: "30em", max: "46em" },
-      sm: { min: "46em" },
+      between: { min: "30em", max: "47em" },
+      sm: { min: "47em" },
 
       // ...defaultTheme.screens,
     },
     extend: {
       backgroundImage: {
-        cta_image:
-          "url('/bg-tablet-pattern.svg'), url('/bg-tablet-pattern.svg')",
-        hero_image: "url('/bg-tablet-pattern.svg')",
+        cta_image: "url('/bg-tablet-pattern.svg'), url('/bg-tablet-pattern.svg')",
+        tablet_image: "url('/bg-tablet-pattern.svg')",
+
+        hamburger_icon: "url('/icon-hamburger.svg')",
+        close_icon: "url('/icon-close.svg')",
       },
       backgroundPosition: {
         cta_image_position: "-15rem -5rem, 80rem -36rem",
@@ -27,6 +29,9 @@ export default {
       },
       gridAutoColumns: {
         "1fr": "minmax(auto, 1fr)",
+      },
+      gridTemplateColumns: {
+        footer_sm: "min-content 1fr auto",
       },
 
       colors: {
@@ -66,7 +71,9 @@ export default {
       },
       spacing: {
         non_mobile_nav_gap: "clamp(1rem, 5vw, 3rem)",
-        footer_nav_gap: "clamp(0.5rem, 15vw, 5rem)",
+        footer_nav_gap: "clamp(4rem, 10vw, 7rem)",
+        footer_input: "max(100%, 10rem)",
+        // footer_input: "100%",
       },
 
       // fontWeight: {
