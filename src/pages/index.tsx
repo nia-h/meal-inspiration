@@ -6,12 +6,14 @@ import Link from "next/link";
 
 import Image from "next/image";
 import logo from "public/cooking.png";
-import { RefObject, useEffect, useRef } from "react";
+import React, { ReactElement, ReactNode, RefObject, useEffect, useRef, useState } from "react";
 import Text from "./text";
 // import type { MouseEvent } from "react";
 
 import { api } from "~/utils/api";
 import A11YSlider from "a11y-slider";
+
+import randomColor from "randomcolor"; // import the script
 
 export default function Home() {
   useEffect(() => {
@@ -146,6 +148,8 @@ export default function Home() {
       <main className="text-sm  text-text_primary_400">
         {/* <header className="primary-header mt-12" ref={headerRef}> */}
         <AuthShowcase />
+        <QuickMeal />
+
         <header
           className="primary-header mt-6"
           ref={headerRef}
@@ -548,3 +552,183 @@ function AuthShowcase() {
     </div>
   );
 }
+
+const QuickMeal: React.FunctionComponent = () => {
+  const [mainIngreds, setMainIngreds] = useState(new Set<string>());
+  const buttonGroupRef = useRef<HTMLDivElement>(null);
+
+  const handleIngredButtonToggle = (e: React.MouseEvent<Element, MouseEvent>): void => {
+    const ingredButton = e.target as HTMLButtonElement;
+    const ingredient = ingredButton.innerText;
+
+    if (mainIngreds.has(ingredient)) {
+      setMainIngreds((prev) => {
+        prev.delete(ingredient);
+        return prev;
+      });
+
+      ingredButton.classList.remove("ring-2");
+      ingredButton.classList.remove("ring-offset-4");
+      // if (mainIngreds.size < 3) {
+      //   ingredButtons.forEach((ingredButton) => {
+      //     // @ts-error-expected dddklk
+      //     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      //     ingredButton.classList.remove("btn-disabled");
+      //   });
+      // }
+    } else {
+      setMainIngreds((prev) => {
+        prev.add(ingredient);
+        return prev;
+      });
+      ingredButton.classList.add("ring-2");
+      ingredButton.classList.add("ring-offset-4");
+      // if (mainIngreds.size > 2) {
+      //   ingredButtons.forEach((ingredButton) => {
+      //     console.dir(ingredButton);
+      //     // @ts-error-expected dddklk
+      //     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      //     ingredButton.className += "btn-disabled";
+      //   });
+      // }
+    }
+    console.log("mainIngreds.size==>", mainIngreds.size);
+
+    if (!buttonGroupRef.current) return;
+    // console.dir(buttonGroupRef.current.childNodes);
+    const childNodes = buttonGroupRef.current.childNodes;
+
+    childNodes.forEach((child) => {
+      if (!(child instanceof HTMLButtonElement)) return;
+      if (mainIngreds.size > 2) {
+        if (!mainIngreds.has(child.value)) {
+          child.classList.add("btn-disabled");
+        }
+      } else {
+        child.classList.remove("btn-disabled");
+      }
+    });
+
+    // if (mainIngreds.size > 0) {
+    //   ingredButton.classList.add("btn-disabled");
+    // } else {
+    //   ingredButton.classList.remove("btn-disabled");
+    // }
+  };
+  //need a reaact function to limit when it runs
+
+  //const color = randomColor(); // a hex code for an attractive color
+  // console.log("color==>", color);
+  const ingredients = ["potato", "beef", "celery", "pork", "lamb", "radish"];
+
+  const ingredButtons = ingredients.map((ingred) => (
+    <button
+      key={ingred}
+      value={ingred}
+      onClick={(e) => {
+        handleIngredButtonToggle(e);
+      }}
+      // className={`${mainIngreds.size > 0 ? "btn-disabled" : ""} btn`}
+      // className={`btn bg-['${color}']`}
+      className="btn opacity-40"
+      style={{ backgroundColor: `${randomColor()}` }}
+    >
+      {ingred}
+    </button>
+  ));
+
+  //  type buttontype = React.ButtonHTMLAttributes<HTMLButtonElement>["type"]
+
+  // useEffect(() => {
+  //   // if (ingredients.length < 1) return;
+  //   ingredButtons = ingredients.map((ingred) => {
+  //     if (mainIngreds.size > 2 && !mainIngreds.has(ingred)) {
+  //       return (
+  //         <button
+  //           key={ingred}
+  //           value={ingred}
+  //           onClick={(e) => {
+  //             handleIngredButtonToggle(e);
+  //           }}
+  //           // className={`${mainIngreds.size > 0 ? "btn-disabled" : ""} btn`}
+  //           // className={`btn bg-['${color}']`}
+  //           className="btn btn-disabled opacity-40"
+  //           style={{ backgroundColor: `${randomColor()}` }}
+  //         >
+  //           {ingred}
+  //         </button>
+  //       );
+  //     } else {
+  //       return (
+  //         <button
+  //           key={ingred}
+  //           value={ingred}
+  //           onClick={(e) => {
+  //             handleIngredButtonToggle(e);
+  //           }}
+  //           // className={`${mainIngreds.size > 0 ? "btn-disabled" : ""} btn`}
+  //           // className={`btn bg-['${color}']`}
+  //           className="btn opacity-40"
+  //           style={{ backgroundColor: `${randomColor()}` }}
+  //         >
+  //           {ingred}
+  //         </button>
+  //       );
+  //     }
+  //   });
+  // }, [mainIngreds]);
+
+  //   if (mainIngreds.size > 2) {
+  //     ingredButtons.forEach((ingredButton: React.JSX.Element) => {
+  //       console.dir(ingredButton);
+  //       if (ingredButton instanceof HTMLButtonElement) {
+  //         console.log("it is a Button!");
+  //         // const text: string = ingredButton.innerText;
+  //         if (!mainIngreds.has(ingredButton.value)) {
+  //           ingredButton.classList.add("btn-disabled");
+  //         }
+  //       }
+  //     });
+  //   } else {
+  //     ingredButtons.forEach((ingredButton: React.JSX.Element) => {
+  //       if (ingredButton instanceof HTMLButtonElement) {
+  //         ingredButton.classList.remove("btn-disabled");
+  //       }
+  //     });
+  //   }
+  // },
+
+  // useEffect(() => {
+  //   console.log("useEffect called");
+  //   if (mainIngreds.size > 2) {
+  //     ingredButtons.forEach((ingredButton) => {
+  //       console.dir(ingredButton);
+  //       // @ts-error-expected dddklk
+  //       // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  //       ingredButton.props.classList.add("btn-disabled");
+  //     });
+  //   }
+  // }, [mainIngreds]);
+
+  return (
+    <div ref={buttonGroupRef} className="button-group flex w-full justify-center gap-2 ">
+      {/* <button
+        onClick={(e) => {
+          handleIngredButtonToggle(e);
+        }}
+        // className={`${mainIngreds.size > 0 ? "btn-disabled" : ""} btn`}
+        // className={`btn bg-['${color}']`}
+        className="btn opacity-40"
+        style={{ backgroundColor: `${color}` }}
+      >
+        Tomato
+      </button>
+      <button className="btn btn-neutral btn-active">Neutral</button>
+      <button className="btn btn-primary btn-active">Primary</button>
+      <button className="btn btn-secondary btn-active">Secondary</button>
+      <button className="btn btn-accent btn-active">Accent</button>
+      <button className="btn btn-ghost btn-active">Ghost</button> */}
+      {ingredButtons}
+    </div>
+  );
+};

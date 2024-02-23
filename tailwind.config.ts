@@ -1,5 +1,7 @@
 import { type Config } from "tailwindcss";
 import defaultTheme, { fontFamily } from "tailwindcss/defaultTheme";
+// import randomColor from "randomcolor"; // import the script
+// import { clr } from "./src/pages/index.jsx";
 
 export default {
   content: ["./src/**/*.tsx"],
@@ -58,6 +60,8 @@ export default {
         bg_accent_100: "hsl(var(--color-accent-100))",
         bg_neutral_100: "hsl(var(--color-neutral-100))",
         bg_neutral_900: "hsl(var(--color-neutral-900))",
+
+        // ingredButton: `${clr}`,
       },
       boxShadow: {
         button: "0 1.125em 1em -1em var(--css-color-accent-500)",
@@ -88,5 +92,5 @@ export default {
       },
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
 } satisfies Config;
