@@ -55,6 +55,13 @@ export default function Home() {
   // });
   //}
   const hello = api.post.hello.useQuery({ text: "from tRPC" });
+  const createPost = api.post.create.useMutation({
+    onSuccess: () => {
+      console.log("createPost done");
+    },
+  });
+
+  const getIdeas = api.recipe.getIdeas.useQuery(["1", "2", "3"]);
 
   const primaryNavItems: [string, string][] = [];
   primaryNavItems.push(["Pricing", "#"]);
@@ -147,8 +154,19 @@ export default function Home() {
 
       <main className="text-sm  text-text_primary_400">
         {/* <header className="primary-header mt-12" ref={headerRef}> */}
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-2xl text-pink-400">{hello.data ? hello.data.greeting : "Loading tRPC query..."}</p>
+        </div>
         <AuthShowcase />
         <QuickMeal />
+        <button
+          // onClick={() => {
+
+          // }}
+          className="btn bg-slate-300 text-black"
+        >
+          getIdeas test
+        </button>
 
         <header
           className="primary-header mt-6"
@@ -639,96 +657,18 @@ const QuickMeal: React.FunctionComponent = () => {
 
   //  type buttontype = React.ButtonHTMLAttributes<HTMLButtonElement>["type"]
 
-  // useEffect(() => {
-  //   // if (ingredients.length < 1) return;
-  //   ingredButtons = ingredients.map((ingred) => {
-  //     if (mainIngreds.size > 2 && !mainIngreds.has(ingred)) {
-  //       return (
-  //         <button
-  //           key={ingred}
-  //           value={ingred}
-  //           onClick={(e) => {
-  //             handleIngredButtonToggle(e);
-  //           }}
-  //           // className={`${mainIngreds.size > 0 ? "btn-disabled" : ""} btn`}
-  //           // className={`btn bg-['${color}']`}
-  //           className="btn btn-disabled opacity-40"
-  //           style={{ backgroundColor: `${randomColor()}` }}
-  //         >
-  //           {ingred}
-  //         </button>
-  //       );
-  //     } else {
-  //       return (
-  //         <button
-  //           key={ingred}
-  //           value={ingred}
-  //           onClick={(e) => {
-  //             handleIngredButtonToggle(e);
-  //           }}
-  //           // className={`${mainIngreds.size > 0 ? "btn-disabled" : ""} btn`}
-  //           // className={`btn bg-['${color}']`}
-  //           className="btn opacity-40"
-  //           style={{ backgroundColor: `${randomColor()}` }}
-  //         >
-  //           {ingred}
-  //         </button>
-  //       );
-  //     }
-  //   });
-  // }, [mainIngreds]);
-
-  //   if (mainIngreds.size > 2) {
-  //     ingredButtons.forEach((ingredButton: React.JSX.Element) => {
-  //       console.dir(ingredButton);
-  //       if (ingredButton instanceof HTMLButtonElement) {
-  //         console.log("it is a Button!");
-  //         // const text: string = ingredButton.innerText;
-  //         if (!mainIngreds.has(ingredButton.value)) {
-  //           ingredButton.classList.add("btn-disabled");
-  //         }
-  //       }
-  //     });
-  //   } else {
-  //     ingredButtons.forEach((ingredButton: React.JSX.Element) => {
-  //       if (ingredButton instanceof HTMLButtonElement) {
-  //         ingredButton.classList.remove("btn-disabled");
-  //       }
-  //     });
-  //   }
-  // },
-
-  // useEffect(() => {
-  //   console.log("useEffect called");
-  //   if (mainIngreds.size > 2) {
-  //     ingredButtons.forEach((ingredButton) => {
-  //       console.dir(ingredButton);
-  //       // @ts-error-expected dddklk
-  //       // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-  //       ingredButton.props.classList.add("btn-disabled");
-  //     });
-  //   }
-  // }, [mainIngreds]);
+  const handleIngreds = () => {
+    return;
+  };
 
   return (
-    <div ref={buttonGroupRef} className="button-group flex w-full justify-center gap-2 ">
-      {/* <button
-        onClick={(e) => {
-          handleIngredButtonToggle(e);
-        }}
-        // className={`${mainIngreds.size > 0 ? "btn-disabled" : ""} btn`}
-        // className={`btn bg-['${color}']`}
-        className="btn opacity-40"
-        style={{ backgroundColor: `${color}` }}
-      >
-        Tomato
+    <div className="flex flex-col items-center gap-4">
+      <div ref={buttonGroupRef} className="button-group flex w-full justify-center gap-2 ">
+        {ingredButtons}
+      </div>
+      <button onClick={handleIngreds} className="btn btn-outline btn-primary btn-wide">
+        Go
       </button>
-      <button className="btn btn-neutral btn-active">Neutral</button>
-      <button className="btn btn-primary btn-active">Primary</button>
-      <button className="btn btn-secondary btn-active">Secondary</button>
-      <button className="btn btn-accent btn-active">Accent</button>
-      <button className="btn btn-ghost btn-active">Ghost</button> */}
-      {ingredButtons}
     </div>
   );
 };
