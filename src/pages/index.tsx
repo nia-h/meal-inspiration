@@ -1,5 +1,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 
+import { z } from "zod";
+
 import Head from "next/head";
 
 import Link from "next/link";
@@ -14,6 +16,10 @@ import { api } from "~/utils/api";
 import A11YSlider from "a11y-slider";
 
 import randomColor from "randomcolor"; // import the script
+
+import { RecipeCard } from "../components/RecipeCard";
+
+import type { Recipe } from "../components/RecipeCard";
 
 export default function Home() {
   useEffect(() => {
@@ -60,8 +66,6 @@ export default function Home() {
       console.log("createPost done");
     },
   });
-
-  const getIdeas = api.recipe.getIdeas.useQuery(["1", "2", "3"]);
 
   const primaryNavItems: [string, string][] = [];
   primaryNavItems.push(["Pricing", "#"]);
@@ -573,7 +577,11 @@ function AuthShowcase() {
 
 const QuickMeal: React.FunctionComponent = () => {
   const [mainIngreds, setMainIngreds] = useState(new Set<string>());
+  const [firstRecipe, setFirstRecipe] = useState<Recipe | null>(null);
+
   const buttonGroupRef = useRef<HTMLDivElement>(null);
+
+  const { data, refetch: getIdesRefetch } = api.recipe.getIdeas.useQuery(mainIngreds, { enabled: false });
 
   const handleIngredButtonToggle = (e: React.MouseEvent<Element, MouseEvent>): void => {
     const ingredButton = e.target as HTMLButtonElement;
@@ -657,8 +665,13 @@ const QuickMeal: React.FunctionComponent = () => {
 
   //  type buttontype = React.ButtonHTMLAttributes<HTMLButtonElement>["type"]
 
-  const handleIngreds = () => {
-    return;
+  const handleIngreds = async () => {
+    const ingredsSchema = z.array(z.string());
+    const recipes = await getIdesRefetch();
+    if (!recipes.data?.[0]) return;
+    const firstRecipe = recipes.data[0];
+
+    setFirstRecipe(firstRecipe);
   };
 
   return (
@@ -669,6 +682,16 @@ const QuickMeal: React.FunctionComponent = () => {
       <button onClick={handleIngreds} className="btn btn-outline btn-primary btn-wide">
         Go
       </button>
+      <div>
+        {firstRecipe && (
+          <RecipeCard
+            recipe={firstRecipe}
+            onDelete={() => {
+              return;
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 };
