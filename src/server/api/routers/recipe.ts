@@ -7,6 +7,7 @@ export const recipeRouter = createTRPCRouter({
     console.log("~~~~~~~~~~~~~~~~~~~~~~~input", input);
     const ingredsArr = Array.from(input);
     console.log("ingredsArr==>", ingredsArr);
+
     return ctx.db.recipe.findMany({
       take: 2,
       where: {

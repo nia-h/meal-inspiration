@@ -287,7 +287,7 @@ export default function Home() {
                   <input type="email" className=" border-2 border-lime-400 text-black" />
                 </div>
                 <ul className="numbered-items me-auto ms-auto w-fit [counter-reset:marker]" role="list">
-                  <li className="[counter-increment:marker]">
+                  <li className="[counter-increment:marker] ">
                     <div className="list-title">
                       <h3 className="col-start-2 col-end-3 row-start-1 row-end-2 font-bold leading-4">
                         One - First Item
