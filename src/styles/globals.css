@@ -303,8 +303,8 @@ p:not([class]) {
     @apply grid grid-cols-[min-content_1fr] items-center gap-x-3 before:col-start-1 before:col-end-2 before:row-start-1 before:row-end-2  before:flex before:h-10    before:items-center  before:rounded-full before:bg-accent_400 before:px-6 before:font-bold before:text-neutral_100 before:content-['0'counter(marker)] after:xs:-z-10 after:xs:col-start-1 after:xs:col-end-[-1]  after:xs:row-start-1 after:xs:row-end-2 after:xs:block after:xs:h-10 after:xs:rounded-l-full after:xs:bg-accent_100 after:xs:shadow-list_title after:xs:content-[''];
   }
 
-  .instruction {
+  /* .instruction {
     @apply before:content-[counter(marker)".\00a0"];
-  }
+  } */
 }
 @tailwind utilities;
