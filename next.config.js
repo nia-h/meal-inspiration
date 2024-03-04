@@ -6,6 +6,19 @@ await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
 const config = {
+  // images: {
+  //   remotePatterns: [
+  //     {
+  //       protocol: "https",
+  //       hostname: "azzamukgpjikjrxwohqyh.supabase.co",
+  //       port: "",
+  //       pathname: "/storage/v1/object/public/meal-inspiration-recipe-photos/**",
+  //     },
+  //   ],
+  // },
+  images: {
+    domains: ["supabase.com"],
+  },
   reactStrictMode: true,
 
   /**

@@ -1,5 +1,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 
+import { useRouter } from "next/router";
+
 import { z } from "zod";
 
 import Head from "next/head";
@@ -17,11 +19,13 @@ import A11YSlider from "a11y-slider";
 
 import randomColor from "randomcolor"; // import the script
 
-import { RecipeCard } from "../components/RecipeCard";
+import RecipeCard from "./RecipeCard";
 
-import type { Recipe } from "../components/RecipeCard";
+import type { Recipe } from "./RecipeCard";
 
 export default function Home() {
+  const router = useRouter();
+  console.log("router==>", router);
   useEffect(() => {
     const existingContainer = document.querySelector(".a11y-slider-container");
     if (existingContainer) return;
@@ -576,6 +580,8 @@ function AuthShowcase() {
 }
 
 const QuickMeal: React.FunctionComponent = () => {
+  const ingredsRouter = useRouter();
+
   const [mainIngreds, setMainIngreds] = useState(new Set<string>());
   const [firstRecipe, setFirstRecipe] = useState<Recipe | null>(null);
 
@@ -679,7 +685,18 @@ const QuickMeal: React.FunctionComponent = () => {
       <div ref={buttonGroupRef} className="button-group flex w-full justify-center gap-2 ">
         {ingredButtons}
       </div>
-      <button onClick={handleIngreds} className="btn btn-outline btn-primary btn-wide">
+      <button
+        onClick={() => {
+          console.log("mainIngreds==>", mainIngreds);
+          void ingredsRouter.push({
+            pathname: "/RecipeCard",
+            query: {
+              data: JSON.stringify(Array.from(mainIngreds)),
+            },
+          });
+        }}
+        className="btn btn-outline btn-primary btn-wide"
+      >
         Go
       </button>
       <div>
