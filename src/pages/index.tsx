@@ -583,11 +583,11 @@ const QuickMeal: React.FunctionComponent = () => {
   const ingredsRouter = useRouter();
 
   const [mainIngreds, setMainIngreds] = useState(new Set<string>());
-  const [firstRecipe, setFirstRecipe] = useState<Recipe | null>(null);
+  // const [firstRecipe, setFirstRecipe] = useState<Recipe | null>(null);
 
   const buttonGroupRef = useRef<HTMLDivElement>(null);
 
-  const { data, refetch: getIdesRefetch } = api.recipe.getIdeas.useQuery(mainIngreds, { enabled: false });
+  // const { data, refetch: getIdesRefetch } = api.recipe.getIdeas.useQuery(mainIngreds, { enabled: false });
 
   const handleIngredButtonToggle = (e: React.MouseEvent<Element, MouseEvent>): void => {
     const ingredButton = e.target as HTMLButtonElement;
@@ -673,11 +673,11 @@ const QuickMeal: React.FunctionComponent = () => {
 
   const handleIngreds = async () => {
     const ingredsSchema = z.array(z.string());
-    const recipes = await getIdesRefetch();
-    if (!recipes.data?.[0]) return;
-    const firstRecipe = recipes.data[0];
+    // const recipes = await getIdesRefetch();
+    // if (!recipes.data?.[0]) return;
+    // const firstRecipe = recipes.data[0];
 
-    setFirstRecipe(firstRecipe);
+    // setFirstRecipe(firstRecipe);
   };
 
   return (
@@ -700,14 +700,14 @@ const QuickMeal: React.FunctionComponent = () => {
         Go
       </button>
       <div>
-        {firstRecipe && (
+        {/* {firstRecipe && (
           <RecipeCard
             recipe={firstRecipe}
             onDelete={() => {
               return;
             }}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

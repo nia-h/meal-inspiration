@@ -3,16 +3,16 @@ import { z } from "zod";
 import { createTRPCRouter, protectedProcedure, publicProcedure } from "~/server/api/trpc";
 
 export const recipeRouter = createTRPCRouter({
-  getIdeas: publicProcedure.input(z.set(z.string())).query(({ ctx, input }) => {
+  getIdeas: publicProcedure.input(z.array(z.string())).query(({ ctx, input }) => {
     console.log("~~~~~~~~~~~~~~~~~~~~~~~input", input);
-    const ingredsArr = Array.from(input);
-    console.log("ingredsArr==>", ingredsArr);
+    // const ingredsArr = Array.from(input);
+    // console.log("ingredsArr==>", ingredsArr);
 
     return ctx.db.recipe.findMany({
       take: 2,
       where: {
         Ingredients: {
-          contains: ingredsArr[0],
+          contains: input[0],
         },
       },
     });
