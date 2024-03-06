@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { z } from "zod";
 import Axios from "axios";
 import type { AxiosResponse } from "axios";
 // import ReactMarkdown from "react-markdown";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 
 import { type RouterOutputs } from "../utils/api";
 import Image from "next/image";
@@ -12,11 +12,8 @@ import { api } from "~/utils/api";
 
 export type Recipe = RouterOutputs["recipe"]["getIdeas"][0];
 
-// export async function getServerSideProps(context) {
-//   const data = JSON.parse(context.query.data);
-// }
-
 export const getServerSideProps = (async (context) => {
+  console.log("context.query.data========================>", context.query.data);
   if (context.query.data === undefined || Array.isArray(context.query.data)) return { props: { mainIngreds: [] } };
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const mainIngreds = JSON.parse(context.query.data);
@@ -26,6 +23,26 @@ export const getServerSideProps = (async (context) => {
 }) satisfies GetServerSideProps<{ mainIngreds: string[] }>;
 
 export default function RecipeCard({ mainIngreds }: { mainIngreds: string[] }) {
+  // useEffect(() => {
+  //   void router.replace(`RecipeCard?data=${encodeURIComponent(JSON.stringify(mainIngreds))}`, "/nia", {
+  //     shallow: true,
+  //   });
+  // }, []);
+  // useEffect(() => {
+  //   router.beforePopState(({ url, as, options }) => {
+  //     // I only want to allow these two routes!
+  //     // if (as !== "/" && as !== "/other") {
+  //     //   // Have SSR render bad routes as a 404.
+  //     //   window.location.href = as;
+  //     //   return false;
+  //     // }
+  //     console.log("$$$$$$$$$$$$$$$$$$$$$$url=>", url);
+  //     console.log("$$$$$$$$$$$$$$$as=>", as);
+  //     console.log("$$$$$$$$$$$$$$$$$options=>", options);
+
+  //     return true;
+  //   });
+  // }, [router]);
   // const [recipe, setRecipe] = useState<Recipe | null>(null);
 
   // const { data, refetch: getIdesRefetch } = api.recipe.getIdeas.useQuery(mainIngreds, { enabled: true });
@@ -87,6 +104,10 @@ export default function RecipeCard({ mainIngreds }: { mainIngreds: string[] }) {
   const instructions = instructionsFormatter(recipe.Instructions);
 
   console.log("img name==>", recipe.Image_Name);
+
+  //needs to complete uploading pics
+
+  //also do a pic existance check
 
   const imageUrl = `https://zzamukgpjikjrxwohqyh.supabase.co/storage/v1/object/public/meal-inspiration-recipe-photos/${recipe.Image_Name}.jpg`;
 

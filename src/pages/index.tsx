@@ -1,6 +1,6 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 
 import { z } from "zod";
 
@@ -22,6 +22,8 @@ import randomColor from "randomcolor"; // import the script
 import RecipeCard from "./RecipeCard";
 
 import type { Recipe } from "./RecipeCard";
+
+import { QuickMealContext } from "../Contexts";
 
 export default function Home() {
   const router = useRouter();
@@ -685,20 +687,34 @@ const QuickMeal: React.FunctionComponent = () => {
       <div ref={buttonGroupRef} className="button-group flex w-full justify-center gap-2 ">
         {ingredButtons}
       </div>
-      <button
+      {/* <button
         onClick={() => {
           console.log("mainIngreds==>", mainIngreds);
-          void ingredsRouter.push({
-            pathname: "/RecipeCard",
-            query: {
-              data: JSON.stringify(Array.from(mainIngreds)),
+          void ingredsRouter.push(
+            {
+              pathname: "/RecipeCard",
+              query: {
+                data: JSON.stringify(Array.from(mainIngreds)),
+              },
             },
-          });
+            "/suggestions",
+            { shallow: false },
+          );
         }}
         className="btn btn-outline btn-primary btn-wide"
       >
         Go
-      </button>
+      </button> */}
+      <Link
+        href={{
+          pathname: "/RecipeCard",
+          query: { data: JSON.stringify(Array.from(mainIngreds)) },
+        }}
+        // as={`/nia`}
+        className="btn btn-outline btn-primary btn-wide"
+      >
+        Go
+      </Link>
       <div>
         {/* {firstRecipe && (
           <RecipeCard
